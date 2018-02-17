@@ -1,1 +1,8 @@
-# -cubeTask
+# cube 
+To move the cube 
+-press W to move up
+-press S to move down
+-Press D to move right
+-Press A to move left 
+-press r to move the cube one step to the right
+-press l to move the cube one step to the left
