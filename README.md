@@ -8,7 +8,7 @@
 * press l to move the cube one step to the left <br />
 
 # To run the game 
- Just press doubleClick on index.html file
+ Open the accompanied `index.html` file
 
 
 
