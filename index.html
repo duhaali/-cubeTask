@@ -27,6 +27,7 @@
     //trrn on the shadow on render
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.BasicShadowMap;
+   
     document.body.appendChild(renderer.domElement);
     //create ligt point
     var light = new THREE.PointLight(0xffffff, 1, 100);
@@ -51,7 +52,8 @@
     cube.castShadow = true;
     cube.receiveShadow = false;
     scene.add(cube);
-   //create the floor
+
+   //create the floor by PlaneGeometry
     meshfloor = new THREE.Mesh(
       new THREE.PlaneGeometry(18, 20, 1, 1),
       new THREE.MeshPhongMaterial({ color: 0x1100a1, wireframe: false })
@@ -70,44 +72,30 @@
       //cube.rotation.x += 0.01;
       //cube.rotation.y += 0.01;
     }
+
     //create the function that move the cube if the key pressed on keyboard
     function moveCubeByKeyboard(e) {
       switch (e.key) {
         case 'w':
-          cube.rotation.x += 1.5;
+          cube.rotation.x += 1.55;
+          cube.position.y +=0.55;
           break;
         case 's':
-          cube.rotation.x += 1.5;
+          cube.rotation.x += -1.55;
+          cube.position.y +=-0.55;
           break;
         case 'a':
-          cube.rotation.y += 1.5;
+          cube.rotation.y += -1.55;
+          cube.position.x +=-0.55;
           break;
         case 'd':
-          cube.rotation.y += 1.5;
+          cube.rotation.y += 1.55;
+          cube.position.x +=0.55;
           break;
-        case 'r':	
-					cube.position.x=1
-					break;
-				case 'l':	
-					cube.position.x=-1
-					break;
-					
       }
       e.preventDefault();
       render();
     }
-///////////////////////////
-
-			// var animate = function () {
-			// 	requestAnimationFrame( animate );
-
-			// 	//cube.rotation.x += 0.1;
-			// 	cube.rotation.y += 0.01;
-
-			// 	renderer.render(scene, camera);
-			// };
-
-			// animate();
   </script>
 </body>
 
