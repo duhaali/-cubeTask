@@ -41,7 +41,7 @@
     var geometryMaterial = [
       material = new THREE.MeshPhongMaterial({ color: 0xff0000}),
       material = new THREE.MeshPhongMaterial({ color: 0x00ff00}),
-      material = new THREE.MeshPhongMaterial({ color: 0x0000ff}),
+      material = new THREE.MeshPhongMaterial({ color: 0x00aa11}),
       material = new THREE.MeshPhongMaterial({ color: 0x7117CF}),
       material = new THREE.MeshPhongMaterial({ color: 0xffb233}),
       material = new THREE.MeshPhongMaterial({ color: 0xE734A3}),
@@ -49,20 +49,63 @@
     var material = new THREE.MeshFaceMaterial(geometryMaterial);
     var cube = new THREE.Mesh(geometry, material);
     cube.position.y += 3;
+    cube.position.z += 2;
     cube.castShadow = true;
     cube.receiveShadow = false;
     scene.add(cube);
 
    //create the floor by PlaneGeometry
     meshfloor = new THREE.Mesh(
-      new THREE.PlaneGeometry(18, 20, 1, 1),
-      new THREE.MeshPhongMaterial({ color: 0x1100a1, wireframe: false })
+      new THREE.PlaneGeometry(25, 20, 1, 1),
+      new THREE.MeshPhongMaterial({ color: 0xd1ccff, wireframe: false })
     );
-    meshfloor.rotation.x -= 1.7;
+    meshfloor.rotation.x -= 1.13;
+    
+    meshfloor.position.y = 0;
     meshfloor.receiveShadow = true;
     meshfloor.castShadow= true;
     scene.add(meshfloor);
+    
+    //create center wall
+    meshCenterWall = new THREE.Mesh(
+      new THREE.PlaneGeometry(26, -40, 1, 1),
+      new THREE.MeshPhongMaterial({ color: 0x1700e6, wireframe: false })
+    );
+    meshCenterWall.rotation.x = -3.1;
+    meshCenterWall.position.x = 0
+    meshCenterWall.position.y = 20
+    meshCenterWall.position.z = -9
+    meshCenterWall.receiveShadow = true;
+    meshCenterWall.castShadow= true;
+    scene.add(meshCenterWall);
+    
 
+    //create the left wall
+    meshLeftWall = new THREE.Mesh(
+      new THREE.PlaneGeometry(62, -60, 1, 1),
+      new THREE.MeshPhongMaterial({ color: 0x1100a1, wireframe: false })
+    );
+    meshLeftWall.rotation.y = -1.18;
+    meshLeftWall.position.x = -15;
+    meshLeftWall.position.y = 27;
+    meshLeftWall.position.z = -2;
+    meshLeftWall.receiveShadow = true;
+    meshLeftWall.castShadow= true;
+    scene.add(meshLeftWall);
+    ///////////////////
+    //create the right wall
+    meshRightWall = new THREE.Mesh(
+      new THREE.PlaneGeometry(60, -55, 1, 1),
+      new THREE.MeshPhongMaterial({ color: 0x1100a1, wireframe: false })
+    );
+    meshRightWall.rotation.y = 1.2;
+    meshRightWall.position.x = 14.5
+    meshRightWall.position.y = 25
+    meshRightWall.position.z = -2
+    meshRightWall.receiveShadow = true;
+    meshRightWall.castShadow= true;
+    scene.add(meshRightWall);
+    
     camera.position.y = 5;
     camera.position.z = 10;
 
