@@ -27,7 +27,7 @@
     //trrn on the shadow on render
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.BasicShadowMap;
-   
+    renderer.setClearColor( 0xffffff, 4);
     document.body.appendChild(renderer.domElement);
     //create ligt point
     var light = new THREE.PointLight(0xffffff, 1, 100);
@@ -77,11 +77,11 @@
     function moveCubeByKeyboard(e) {
       switch (e.key) {
         case 'w':
-          cube.rotation.x += 1.55;
+          cube.rotation.x += -1.55;
           cube.position.y +=0.55;
           break;
         case 's':
-          cube.rotation.x += -1.55;
+          cube.rotation.x += 1.55;
           cube.position.y +=-0.55;
           break;
         case 'a':
