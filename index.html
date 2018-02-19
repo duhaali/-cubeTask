@@ -115,17 +115,19 @@
       //cube.rotation.x += 0.01;
       //cube.rotation.y += 0.01;
     }
-
+    var WSKey
     //create the function that move the cube if the key pressed on keyboard
     function moveCubeByKeyboard(e) {
       switch (e.key) {
         case 'w':
           cube.rotation.x += -1.55;
-          cube.position.y +=0.55;
+          cube.position.z +=-0.55;
+          console.log(cube.position.y);
           break;
         case 's':
           cube.rotation.x += 1.55;
-          cube.position.y +=-0.55;
+          cube.position.z +=0.55;
+          //consol.log('ddddddddddddddddddddddddd')
           break;
         case 'a':
           cube.rotation.y += -1.55;
