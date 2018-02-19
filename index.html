@@ -1,22 +1,16 @@
 <html>
 
 <head>
-  <title>My first three.js app</title>
+  <title>Cube Game</title>
   <style>
     body {
       margin: 0;
-    }
-
-    canvas {
-      width: 100%;
-      height: 100%;
     }
   </style>
 
 </head>
 
 <body>
-  <script src="lemon.typeface.js"></script>
   <script src="three.js"></script>
   <script>
     document.body.addEventListener('keydown', moveCubeByKeyboard);
@@ -73,9 +67,9 @@
     var materiall = new THREE.MeshLambertMaterial({ map: new THREE.TextureLoader().load("first.jpg") });
     var meshCenterWall = new THREE.Mesh(new THREE.PlaneGeometry(25, -40, 1, 1), materiall);
     meshCenterWall.rotation.x = -3.1;
-    meshCenterWall.position.x = 0
-    meshCenterWall.position.y = 2
-    meshCenterWall.position.z = -9
+    meshCenterWall.position.x = 0;
+    meshCenterWall.position.y = 2;
+    meshCenterWall.position.z = -9;
     meshCenterWall.receiveShadow = true;
     meshCenterWall.castShadow = true;
     scene.add(meshCenterWall);
@@ -115,22 +109,6 @@
       //cube.rotation.x += 0.01;
       //cube.rotation.y += 0.01;
     }
-
-    var loader = new THREE.FontLoader();
-
-    loader.load('fonts/helvetiker_regular.typeface.json', function (font) {
-
-      var geometry = new THREE.TextGeometry('Hello three.js!', {
-        font: font,
-        size: 80,
-        height: 5,
-        curveSegments: 12,
-        bevelEnabled: true,
-        bevelThickness: 10,
-        bevelSize: 8,
-        bevelSegments: 5
-      });
-    });
 
     //create the function that move the cube if the key pressed on keyboard
     function moveCubeByKeyboard(e) {
