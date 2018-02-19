@@ -6,14 +6,17 @@
     body {
       margin: 0;
     }
+
     canvas {
       width: 100%;
       height: 100%;
     }
   </style>
+
 </head>
 
 <body>
+  <script src="lemon.typeface.js"></script>
   <script src="three.js"></script>
   <script>
     document.body.addEventListener('keydown', moveCubeByKeyboard);
@@ -27,58 +30,55 @@
     //trrn on the shadow on render
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.BasicShadowMap;
-    renderer.setClearColor( 0xffffff, 4);
+    renderer.setClearColor(0xffffff, 4);
     document.body.appendChild(renderer.domElement);
     //create ligt point
     var light = new THREE.PointLight(0xffffff, 1, 100);
     light.position.set(2, 10, 2);
     light.castShadow = true;
     light.shadow.camera.near = 5;
-    light.shadow.camera.far = 500 
-    scene.add(light)
+    light.shadow.camera.far = 500;
+    scene.add(light);
+
     //create the cube and give it a color (geometry and material)
     var geometry = new THREE.BoxGeometry(2, 2, 2);
     var geometryMaterial = [
-      material = new THREE.MeshPhongMaterial({ color: 0xff0000}),
-      material = new THREE.MeshPhongMaterial({ color: 0x00ff00}),
-      material = new THREE.MeshPhongMaterial({ color: 0x00aa11}),
-      material = new THREE.MeshPhongMaterial({ color: 0x7117CF}),
-      material = new THREE.MeshPhongMaterial({ color: 0xffb233}),
-      material = new THREE.MeshPhongMaterial({ color: 0xE734A3}),
+      material = new THREE.MeshPhongMaterial({ color: 0xff0000 }),
+      material = new THREE.MeshPhongMaterial({ color: 0x00ff00 }),
+      material = new THREE.MeshPhongMaterial({ color: 0x00aa11 }),
+      material = new THREE.MeshPhongMaterial({ color: 0x7117CF }),
+      material = new THREE.MeshPhongMaterial({ color: 0xffb233 }),
+      material = new THREE.MeshPhongMaterial({ color: 0xE734A3 }),
     ]
     var material = new THREE.MeshFaceMaterial(geometryMaterial);
     var cube = new THREE.Mesh(geometry, material);
-    cube.position.y += 3;
+    cube.position.y += 5;
     cube.position.z += 2;
     cube.castShadow = true;
     cube.receiveShadow = false;
     scene.add(cube);
 
-   //create the floor by PlaneGeometry
+    //create the floor by PlaneGeometry
     meshfloor = new THREE.Mesh(
       new THREE.PlaneGeometry(25, 20, 1, 1),
       new THREE.MeshPhongMaterial({ color: 0xd1ccff, wireframe: false })
     );
     meshfloor.rotation.x -= 1.13;
-    
     meshfloor.position.y = 0;
     meshfloor.receiveShadow = true;
-    meshfloor.castShadow= true;
+    meshfloor.castShadow = true;
     scene.add(meshfloor);
-    
-    //create center wall
-    meshCenterWall = new THREE.Mesh(
-      new THREE.PlaneGeometry(26, -40, 1, 1),
-      new THREE.MeshPhongMaterial({ color: 0x1700e6, wireframe: false })
-    );
+
+    //create center texture wall
+    var materiall = new THREE.MeshLambertMaterial({ map: new THREE.TextureLoader().load("first.jpg") });
+    var meshCenterWall = new THREE.Mesh(new THREE.PlaneGeometry(25, -40, 1, 1), materiall);
     meshCenterWall.rotation.x = -3.1;
     meshCenterWall.position.x = 0
-    meshCenterWall.position.y = 20
+    meshCenterWall.position.y = 2
     meshCenterWall.position.z = -9
     meshCenterWall.receiveShadow = true;
-    meshCenterWall.castShadow= true;
+    meshCenterWall.castShadow = true;
     scene.add(meshCenterWall);
-    
 
     //create the left wall
     meshLeftWall = new THREE.Mesh(
@@ -90,22 +90,22 @@
     meshLeftWall.position.y = 27;
     meshLeftWall.position.z = -2;
     meshLeftWall.receiveShadow = true;
-    meshLeftWall.castShadow= true;
+    meshLeftWall.castShadow = true;
     scene.add(meshLeftWall);
-    ///////////////////
+
     //create the right wall
     meshRightWall = new THREE.Mesh(
       new THREE.PlaneGeometry(60, -55, 1, 1),
       new THREE.MeshPhongMaterial({ color: 0x1100a1, wireframe: false })
     );
     meshRightWall.rotation.y = 1.2;
-    meshRightWall.position.x = 14.5
-    meshRightWall.position.y = 25
-    meshRightWall.position.z = -2
+    meshRightWall.position.x = 14.5;
+    meshRightWall.position.y = 25;
+    meshRightWall.position.z = -2;
     meshRightWall.receiveShadow = true;
-    meshRightWall.castShadow= true;
+    meshRightWall.castShadow = true;
     scene.add(meshRightWall);
-    
+
     camera.position.y = 5;
     camera.position.z = 10;
 
@@ -115,32 +115,47 @@
       //cube.rotation.x += 0.01;
       //cube.rotation.y += 0.01;
     }
-    var WSKey
+
+    var loader = new THREE.FontLoader();
+
+    loader.load('fonts/helvetiker_regular.typeface.json', function (font) {
+
+      var geometry = new THREE.TextGeometry('Hello three.js!', {
+        font: font,
+        size: 80,
+        height: 5,
+        curveSegments: 12,
+        bevelEnabled: true,
+        bevelThickness: 10,
+        bevelSize: 8,
+        bevelSegments: 5
+      });
+    });
+
     //create the function that move the cube if the key pressed on keyboard
     function moveCubeByKeyboard(e) {
       switch (e.key) {
         case 'w':
           cube.rotation.x += -1.55;
-          cube.position.z +=-0.55;
-          console.log(cube.position.y);
+          cube.position.z += -0.55;
           break;
         case 's':
           cube.rotation.x += 1.55;
-          cube.position.z +=0.55;
-          //consol.log('ddddddddddddddddddddddddd')
+          cube.position.z += 0.55;
           break;
         case 'a':
           cube.rotation.y += -1.55;
-          cube.position.x +=-0.55;
+          cube.position.x += -0.55;
           break;
         case 'd':
           cube.rotation.y += 1.55;
-          cube.position.x +=0.55;
+          cube.position.x += 0.55;
           break;
       }
       e.preventDefault();
       render();
     }
+
   </script>
 </body>
 
