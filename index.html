@@ -15,7 +15,7 @@
   <script>
     document.body.addEventListener('keydown', moveCubeByKeyboard);
     var scene = new THREE.Scene();
-    var camera = new THREE.PerspectiveCamera(80, window.innerWidth / window.innerHeight, 0.1, 1000);
+    var camera = new THREE.PerspectiveCamera(130, window.innerWidth / window.innerHeight, 0.1, 1000);
     var Alight = new THREE.AmbientLight(0xdddddd);
     scene.add(Alight);
 
@@ -46,80 +46,78 @@
     ]
     var material = new THREE.MeshFaceMaterial(geometryMaterial);
     var cube = new THREE.Mesh(geometry, material);
-    cube.position.y += 5;
-    cube.position.z += 2;
+    cube.position.y += -1;
+    cube.position.z += -5;
+    //cube.position.x += 5;
     cube.castShadow = true;
     cube.receiveShadow = false;
     scene.add(cube);
 
     //create the floor by PlaneGeometry
     meshfloor = new THREE.Mesh(
-      new THREE.PlaneGeometry(25, 20, 1, 1),
-      new THREE.MeshPhongMaterial({ color: 0xd1ccff, wireframe: false })
+      new THREE.PlaneGeometry(20, 20),
+      new THREE.MeshPhongMaterial({ color: 0x809fff, wireframe: false })
     );
-    meshfloor.rotation.x -= 1.13;
-    meshfloor.position.y = 0;
+    meshfloor.position.z = -10;
     meshfloor.receiveShadow = true;
     meshfloor.castShadow = true;
     scene.add(meshfloor);
 
     //create center texture wall
-    var materiall = new THREE.MeshLambertMaterial({ map: new THREE.TextureLoader().load("first.jpg") });
-    var meshCenterWall = new THREE.Mesh(new THREE.PlaneGeometry(25, -40, 1, 1), materiall);
-    meshCenterWall.rotation.x = -3.1;
-    meshCenterWall.position.x = 0;
-    meshCenterWall.position.y = 2;
-    meshCenterWall.position.z = -9;
+    var materiall = new THREE.MeshLambertMaterial({ map: new THREE.TextureLoader().load("images.png") });
+    var meshCenterWall = new THREE.Mesh(new THREE.PlaneGeometry(20, 20), materiall);
+    meshCenterWall.rotation.x = Math.PI/2;
+    meshCenterWall.position.y = 10;
     meshCenterWall.receiveShadow = true;
     meshCenterWall.castShadow = true;
     scene.add(meshCenterWall);
 
     //create the left wall
     meshLeftWall = new THREE.Mesh(
-      new THREE.PlaneGeometry(62, -60, 1, 1),
-      new THREE.MeshPhongMaterial({ color: 0x1100a1, wireframe: false })
+      new THREE.PlaneGeometry(20, 20),
+      new THREE.MeshPhongMaterial({ color: 0x0039e6, wireframe: false })
     );
-    meshLeftWall.rotation.y = -1.18;
-    meshLeftWall.position.x = -15;
-    meshLeftWall.position.y = 27;
-    meshLeftWall.position.z = -2;
+    meshLeftWall.rotation.y = Math.PI/2;
+    meshLeftWall.position.x = -10;
+    meshLeftWall.position.y = 0;
+    //meshLeftWall.position.z = -2;
     meshLeftWall.receiveShadow = true;
     meshLeftWall.castShadow = true;
     scene.add(meshLeftWall);
 
     //create the right wall
     meshRightWall = new THREE.Mesh(
-      new THREE.PlaneGeometry(60, -55, 1, 1),
-      new THREE.MeshPhongMaterial({ color: 0x1100a1, wireframe: false })
+      new THREE.PlaneGeometry(20, 20),
+      new THREE.MeshPhongMaterial({ color: 0x0039e6, wireframe: false })
     );
-    meshRightWall.rotation.y = 1.2;
-    meshRightWall.position.x = 14.5;
-    meshRightWall.position.y = 25;
-    meshRightWall.position.z = -2;
+    meshRightWall.rotation.y = -Math.PI/2;
+    meshRightWall.position.x = 10;
     meshRightWall.receiveShadow = true;
     meshRightWall.castShadow = true;
     scene.add(meshRightWall);
 
-    camera.position.y = 5;
-    camera.position.z = 10;
-
+    camera.rotation.x = (Math.PI*0.01)*40; 
+    camera.position.y = -7;
+    camera.position.z = -5;
+    //var axisHelper = new THREE.AxisHelper(5);
+    //scene.add(axisHelper);
+    
+    
     function render() {
-      requestAnimationFrame(render);
       renderer.render(scene, camera);
       //cube.rotation.x += 0.01;
       //cube.rotation.y += 0.01;
     }
-
     //create the function that move the cube if the key pressed on keyboard
     function moveCubeByKeyboard(e) {
       switch (e.key) {
         case 'w':
           cube.rotation.x += -1.55;
-          cube.position.z += -0.55;
+          cube.position.y += -0.55;
           break;
         case 's':
           cube.rotation.x += 1.55;
-          cube.position.z += 0.55;
+          cube.position.y += 0.55;
           break;
         case 'a':
           cube.rotation.y += -1.55;
@@ -128,6 +126,18 @@
         case 'd':
           cube.rotation.y += 1.55;
           cube.position.x += 0.55;
+          break;
+        case 'ArrowRight':
+          camera.rotation.y +=Math.PI*0.01;
+          break;
+        case 'ArrowLeft':
+          camera.rotation.y -=Math.PI*0.01;
+          break;
+        case 'ArrowDown': // go in depth
+          camera.position.y -= 1;
+          break;
+        case 'ArrowUp':
+          camera.position.y += 1;
           break;
       }
       e.preventDefault();
